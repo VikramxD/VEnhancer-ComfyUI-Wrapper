@@ -6,13 +6,13 @@ import torch
 import torch.cuda.amp as amp
 import torch.nn.functional as F
 
-from video_to_video.diffusion.diffusion_sdedit import GaussianDiffusion
-from video_to_video.diffusion.schedules_sdedit import noise_schedule
-from video_to_video.modules.embedder import FrozenOpenCLIPEmbedder
-import video_to_video.modules.unet_v2v as unet_v2v
-from video_to_video.utils.config import cfg
-from video_to_video.utils.logger import get_logger
-from video_to_video.utils.util import *
+from VEnhancer.video_to_video.diffusion.diffusion_sdedit import GaussianDiffusion
+from VEnhancer.video_to_video.diffusion.schedules_sdedit import noise_schedule
+from VEnhancer.video_to_video.modules.embedder import FrozenOpenCLIPEmbedder
+import VEnhancer.video_to_video.modules.unet_v2v as unet_v2v
+from VEnhancer.video_to_video.utils.config import cfg
+from VEnhancer.video_to_video.utils.logger import get_logger
+from VEnhancer.video_to_video.utils.util import *
 
 logger = get_logger()
 

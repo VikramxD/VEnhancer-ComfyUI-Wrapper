@@ -3,8 +3,7 @@
 import torch
 import torchsde
 from tqdm.auto import trange
-
-from video_to_video.utils.logger import get_logger
+from VEnhancer.video_to_video.utils.logger import get_logger
 
 logger = get_logger()
 
