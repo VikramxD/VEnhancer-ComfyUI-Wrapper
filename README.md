@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![VEnhancer Logo](assets/logo.png)
 
 **ComfyUI extension for VEnhancer: A powerful video enhancement model that supports spatial super-resolution, temporal interpolation, and AI-guided refinement.**
 
@@ -15,7 +14,6 @@
 [Installation](#installation) •
 [Quick Start](#quick-start) •
 [Documentation](#documentation) •
-[Examples](#examples)
 
 </div>
 
