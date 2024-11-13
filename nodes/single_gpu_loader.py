@@ -1,8 +1,8 @@
 """Node for loading VEnhancer model in single GPU mode."""
 
 from typing import Dict, Any, Tuple
-from src.VEnhancer.configs.venhnacer_config import VEnhancerConfig
-from src.VEnhancer.enhance_a_video import VEnhancer
+from VEnhancer.configs.venhnacer_config import VEnhancerConfig
+from VEnhancer.enhance_a_video import VEnhancer
 
 class SingleGPUVEnhancerLoader:
     @classmethod

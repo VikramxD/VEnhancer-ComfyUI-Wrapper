@@ -1,6 +1,6 @@
 from typing import Dict, Any, Tuple
-from src.VEnhancer.configs.distributred_venhancer_config import DistributedConfig
-from src.VEnhancer.enhance_a_video_MultiGPU import DistributedVEnhancer
+from VEnhancer.configs.distributred_venhancer_config import DistributedConfig
+from VEnhancer.enhance_a_video_MultiGPU import DistributedVEnhancer
 
 
 class MultiGPUVEnhancerLoader:
