@@ -10,9 +10,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torchvision.transforms.functional as transforms_F
-
-from video_to_video.utils.logger import get_logger
-
+from VEnhancer.video_to_video.utils.logger import get_logger
 logger = get_logger()
 
 
