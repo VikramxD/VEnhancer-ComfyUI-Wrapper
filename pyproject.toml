@@ -1,0 +1,26 @@
+[project]
+name = "ve-enhancer-comfyui"
+version = "0.1.0"
+description = "ComfyUI workflow for VE Enhancer Inference"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "lightning>=2.0.0",
+    "litserve>=0.1.0",
+    "wandb>=0.15.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "transformers>=4.30.0",
+    "accelerate>=0.20.0",
+    "safetensors>=0.3.0",
+    "diffusers@ git+https://github.com/huggingface/diffusers",
+    "sentencepiece",
+    "bitsandbytes",
+
+]
+
+
+[tool.ruff]
+line-length = 120
