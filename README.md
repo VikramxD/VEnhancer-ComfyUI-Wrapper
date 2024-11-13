@@ -48,7 +48,7 @@
 1. Install in ComfyUI custom nodes directory:
 ```bash
 cd ComfyUI/custom_nodes/
-git clone https://github.com/your-username/venhancer-comfyui
+git clone https://github.com/vikramxD/VEnhancer-ComfyUI-Wrapper
 cd venhancer-comfyui
 ```
 
