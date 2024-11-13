@@ -141,35 +141,6 @@ model = MultiGPUVEnhancerLoader().load_model(
 }
 ```
 
-## Examples
-
-### Basic Enhancement
-![Basic Enhancement](assets/basic_enhancement.png)
-
-Simple video upscaling with quality improvement:
-```python
-enhanced = SingleGPUInference().enhance_video(
-    model=model,
-    video=video,
-    prompt="Enhance video quality",
-    up_scale=4.0
-)
-```
-
-### Cinematic Enhancement
-![Cinematic Enhancement](assets/cinematic_enhancement.png)
-
-Adding cinematic quality through text guidance:
-```python
-enhanced = SingleGPUInference().enhance_video(
-    model=model,
-    video=video,
-    prompt="Enhance with cinematic lighting and color grading",
-    up_scale=4.0,
-    noise_aug=250  # Stronger refinement
-)
-```
-
 ## Advanced Usage
 
 ### Server Deployment
