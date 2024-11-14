@@ -139,28 +139,6 @@ model = MultiGPUVEnhancerLoader().load_model(
 }
 ```
 
-## Advanced Usage
-
-### Server Deployment
-```python
-from venhancer_comfyui.server import VEnhancerServer
-
-server = VEnhancerServer()
-server.start(host="0.0.0.0", port=8000)
-```
-
-### Batch Processing
-```python
-from venhancer_comfyui.batch import BatchProcessor
-
-processor = BatchProcessor(
-    input_dir="videos/",
-    output_dir="enhanced/",
-    num_gpus=4
-)
-processor.process()
-```
-
 ## Troubleshooting
 
 Common issues and solutions:
