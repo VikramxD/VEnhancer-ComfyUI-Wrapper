@@ -23,7 +23,8 @@ dependencies = [
     "safetensors>=0.3.0",
     "sentencepiece",
     "bitsandbytes",
-    "pydantic-settings"
+    "pydantic-settings",
+    "loguru"
 ]
 
 [build-system]

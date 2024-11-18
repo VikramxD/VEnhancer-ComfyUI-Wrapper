@@ -1,6 +1,8 @@
+
 """Node for running VEnhancer inference on single GPU."""
 
 from typing import Dict, Any, Tuple
+import os
 import time
 import torch
 from loguru import logger
@@ -11,7 +13,6 @@ class SingleGPUInferenceNode:
 
     @classmethod
     def INPUT_TYPES(cls) -> Dict[str, Any]:
-        """Define input parameters for video enhancement."""
         return {
             "required": {
                 "model": ("SINGLE_GPU_MODEL",),
@@ -30,6 +31,8 @@ class SingleGPUInferenceNode:
     def __init__(self):
         """Initialize SingleGPUInferenceNode with logging."""
         self.logger = logger.bind(node="SingleGPUInference")
+        self.output_dir = os.path.abspath(os.path.join("ComfyUI", "output"))
+        os.makedirs(self.output_dir, exist_ok=True)
 
     def enhance_video(self, model: Any, video: str, **kwargs) -> Tuple[str]:
         """
@@ -38,26 +41,25 @@ class SingleGPUInferenceNode:
         Args:
             model: Loaded VEnhancer model instance
             video: Path to input video
-            **kwargs: Enhancement parameters including:
-                - prompt: Text prompt for enhancement
-                - up_scale: Upscaling factor
-                - target_fps: Target frame rate
-                - noise_aug: Noise augmentation level
+            **kwargs: Enhancement parameters including prompt, up_scale, etc.
 
         Returns:
-            Tuple[str]: Path to enhanced video
-
-        Raises:
-            RuntimeError: If GPU memory is insufficient
-            Exception: If enhancement fails
+            Tuple[str]: Path to enhanced video file
         """
         try:
             start_time = time.time()
             init_mem = torch.cuda.memory_allocated()
 
+            # Configure model output directory
+            model.config.result_dir = self.output_dir
+
+            # Get base filename
+            video_name = os.path.splitext(os.path.basename(video))[0]
+            
             self.logger.info("Starting video enhancement", extra={
                 "config": {
-                    "video": video,
+                    "input_video": video,
+                    "output_dir": self.output_dir,
                     "prompt": kwargs.get("prompt"),
                     "up_scale": kwargs.get("up_scale"),
                     "target_fps": kwargs.get("target_fps"),
@@ -66,19 +68,27 @@ class SingleGPUInferenceNode:
             })
 
             # Run enhancement
-            output_path = model.enhance_a_video(video_path=video, **kwargs)
+            output_path = model.enhance_a_video(
+                video_path=video,
+                **kwargs
+            )
 
-            # Log metrics
+            # Verify output
+            if not os.path.exists(output_path):
+                raise FileNotFoundError(f"Enhanced video not found at: {output_path}")
+
+            # Log performance metrics
             enhance_time = time.time() - start_time
             peak_mem = torch.cuda.max_memory_allocated()
-            mem_used = peak_mem - init_mem
+            current_mem = torch.cuda.memory_allocated()
 
             self.logger.success("Enhancement completed", extra={
                 "metrics": {
                     "total_time": f"{enhance_time:.2f}s",
-                    "gpu_memory_used": f"{mem_used/1024/1024:.1f}MB",
                     "peak_gpu_memory": f"{peak_mem/1024/1024:.1f}MB",
-                    "gpu_utilization": f"{torch.cuda.utilization()}%"
+                    "current_gpu_memory": f"{current_mem/1024/1024:.1f}MB",
+                    "output_path": output_path,
+                    "output_size": f"{os.path.getsize(output_path)/1024/1024:.1f}MB"
                 }
             })
 
@@ -87,6 +97,12 @@ class SingleGPUInferenceNode:
         except Exception as e:
             self.logger.exception("Enhancement failed", extra={
                 "error": str(e),
-                "gpu_state": torch.cuda.memory_summary()
+                "input_video": video,
+                "gpu_state": torch.cuda.memory_summary(),
+                "system_info": {
+                    "gpu_name": torch.cuda.get_device_name(),
+                    "gpu_memory": f"{torch.cuda.get_device_properties(0).total_memory/1024/1024/1024:.1f}GB",
+                    "cuda_version": torch.version.cuda
+                }
             })
             raise
