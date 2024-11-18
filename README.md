@@ -54,7 +54,8 @@ cd venhancer-comfyui
 
 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+uv pip install setuptools
+uv pip install -e . --no-build-isolation
 ```
 
 ## Quick Start
@@ -89,23 +90,6 @@ enhanced = SingleGPUInference().enhance_video(
 
 # Save result
 SingleGPUSaver().save_video(enhanced, "enhanced.mp4")
-```
-
-### 2. Multi-GPU Enhancement
-
-```bash
-# Start ComfyUI with multiple GPUs
-torchrun --nproc_per_node=4 main.py
-```
-
-```python
-# Initialize distributed model
-model = MultiGPUVEnhancerLoader().load_model(
-    version="v2",
-    world_size=4,
-    rank=0,
-    local_rank=0
-)
 ```
 
 ## Documentation
