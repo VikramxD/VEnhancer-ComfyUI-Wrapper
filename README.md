@@ -49,7 +49,7 @@
 ```bash
 cd ComfyUI/custom_nodes/
 git clone https://github.com/vikramxD/VEnhancer-ComfyUI-Wrapper
-cd venhancer-comfyui
+cd VEnhancer-ComfyUI-Wrapper
 ```
 
 2. Install dependencies:
